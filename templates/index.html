@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web Scraping - Búsqueda de Alimentos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        .loader-container {
+          display: none;
+          justify-content: center;
+          align-items: center;
+          height: 80vh;
+        }
+        
+        .loader {
+          border: 4px solid #dbdbdb;
+          border-top: 4px solid #3273dc;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        </style>        
+</head>
+<body>
+    <div class="container is-max-widescreen">
+        
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <h1 class="title is-3">Búsqueda de Alimentos</h1>
+            </div>
+        </nav>
+
+        <form id="buscador" action="/" method="POST" onsubmit="return validarFormulario(event)">
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input id="nombre_alimento" class="input" type="text" name="nombre_alimento" placeholder="Nombre del alimento">
+                    <p class="help is-danger" id="error_nombre" style="display:none;">El nombre es obligatorio.</p>
+                </div>
+                <div class="control">
+                    <input class="button is-info" type="submit" value="Buscar" onclick="if (validarFormulario()) { showLoader(); }">
+                </div>
+            </div>
+        </form>
+
+        <div id="loader-container" class="loader-container">
+            <div class="loader"></div>
+        </div>
+
+        {% if nombre %}
+        <h3 class="title is-4">Resultado de la búsqueda de: {{nombre}}</h3>
+        {% endif %}
+
+
+        {% if resultado_puntomascotas %}
+            <div class="box">
+                <h3>Puntomascotas.cl</h3>
+                <p>Nombre: {{ resultado_puntomascotas.nombre }}</p>
+                <p>Precio: {{ resultado_puntomascotas.precio }}</p>
+                <p>Stock: {{ resultado_puntomascotas.stock }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado_braloy %}
+            <div class="box">
+                <h3>Braloy.cl</h3>
+                <p>Nombre: {{ resultado_braloy.nombre }}</p>
+                <p>Precio: {{ resultado_braloy.precio }}</p>
+                <p>Stock: {{ resultado_braloy.stock }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado_petslandia %}
+            <div class="box">
+                <h3>Petslandia.cl</h3>
+                <p>Nombre: {{ resultado_petslandia.nombre }}</p>
+                <p>Precio: {{ resultado_petslandia.precio }}</p>
+                <p>Stock: {{ resultado_petslandia.stock }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado_tusmascotas %}
+            <div class="box">
+                <h3>Tusmascotas.cl</h3>
+                <p>Nombre: {{ resultado_tusmascotas.nombre }}</p>
+                <p>Precio: {{ resultado_tusmascotas.precio }}</p>
+                <p>Stock: {{ resultado_tusmascotas.stock }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado_tusmascotas_full %}
+            <div class="box">
+                <h3>Tusmascotas.cl</h3>
+                <p>Nombre: {{ resultado_tusmascotas_full.nombre }}</p>
+                <p>Precio: {{ resultado_tusmascotas_full.precio }}</p>
+                <p>Stock: {{ resultado_tusmascotas_full.stock }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado_novapet %}
+            <div class="box">
+                <h3>Novapet.cl</h3>
+                <p>Nombre: {{ resultado_novapet.nombre }}</p>
+                <p>Precio: {{ resultado_novapet.precio }}</p>
+                <p>Stock: {{ resultado_novapet.stock }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado_mlandia %}
+            <div class="box">
+                <h3>Mascotalandia.cl</h3>
+                <p>Nombre: {{ resultado_mlandia.nombre }}</p>
+                <p>Precio: {{ resultado_mlandia.precio }}</p>
+                <p>Stock: {{ resultado_mlandia.stock }}</p>
+            </div>
+        {% endif %}
+    </div>
+    <script>
+        function showLoader() {
+            var loaderContainer = document.getElementById("loader-container");
+            loaderContainer.style.display = "flex";
+        }
+
+        function hideLoader() {
+            var loaderContainer = document.getElementById("loader-container");
+            loaderContainer.style.display = "none";
+        }
+
+        function validarFormulario(event) {
+            var nombreInput = document.getElementById("nombre_alimento");
+            var nombreError = document.getElementById("error_nombre");
+
+            if (nombreInput.value.trim() === "") {
+            nombreError.style.display = "block";
+            nombreInput.classList.add("is-danger");
+            event.preventDefault();
+            return false;
+            } else {
+            nombreError.style.display = "none";
+            nombreInput.classList.remove("is-danger");
+            return true;
+            }
+         }
+
+    </script>
+</body>
+</html>
