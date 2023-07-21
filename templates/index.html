@@ -6,11 +6,14 @@
     <title>Web Scraping - Búsqueda de Alimentos</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <style>
+        .container{
+            height: 100%;
+        }
         .loader-container {
           display: none;
           justify-content: center;
           align-items: center;
-          height: 80vh;
+          height: 100%;
         }
         
         .loader {
@@ -64,7 +67,7 @@
 
         {% if resultado_puntomascotas %}
             <div class="box">
-                <h3>Puntomascotas.cl</h3>
+                <h3>Puntomascotas</h3>
                 <p>Nombre: {{ resultado_puntomascotas.nombre }}</p>
                 <p>Precio: {{ resultado_puntomascotas.precio }}</p>
                 <p>Stock: {{ resultado_puntomascotas.stock }}</p>
@@ -73,7 +76,7 @@
 
         {% if resultado_braloy %}
             <div class="box">
-                <h3>Braloy.cl</h3>
+                <h3>Braloy</h3>
                 <p>Nombre: {{ resultado_braloy.nombre }}</p>
                 <p>Precio: {{ resultado_braloy.precio }}</p>
                 <p>Stock: {{ resultado_braloy.stock }}</p>
@@ -82,7 +85,7 @@
 
         {% if resultado_petslandia %}
             <div class="box">
-                <h3>Petslandia.cl</h3>
+                <h3>Petslandia</h3>
                 <p>Nombre: {{ resultado_petslandia.nombre }}</p>
                 <p>Precio: {{ resultado_petslandia.precio }}</p>
                 <p>Stock: {{ resultado_petslandia.stock }}</p>
@@ -91,7 +94,7 @@
 
         {% if resultado_tusmascotas %}
             <div class="box">
-                <h3>Tusmascotas.cl</h3>
+                <h3>Tusmascotas</h3>
                 <p>Nombre: {{ resultado_tusmascotas.nombre }}</p>
                 <p>Precio: {{ resultado_tusmascotas.precio }}</p>
                 <p>Stock: {{ resultado_tusmascotas.stock }}</p>
@@ -100,7 +103,7 @@
 
         {% if resultado_tusmascotas_full %}
             <div class="box">
-                <h3>Tusmascotas.cl</h3>
+                <h3>Tusmascotas</h3>
                 <p>Nombre: {{ resultado_tusmascotas_full.nombre }}</p>
                 <p>Precio: {{ resultado_tusmascotas_full.precio }}</p>
                 <p>Stock: {{ resultado_tusmascotas_full.stock }}</p>
@@ -109,7 +112,7 @@
 
         {% if resultado_novapet %}
             <div class="box">
-                <h3>Novapet.cl</h3>
+                <h3>Novapet</h3>
                 <p>Nombre: {{ resultado_novapet.nombre }}</p>
                 <p>Precio: {{ resultado_novapet.precio }}</p>
                 <p>Stock: {{ resultado_novapet.stock }}</p>
@@ -118,10 +121,64 @@
 
         {% if resultado_mlandia %}
             <div class="box">
-                <h3>Mascotalandia.cl</h3>
+                <h3>Mascotalandia</h3>
                 <p>Nombre: {{ resultado_mlandia.nombre }}</p>
                 <p>Precio: {{ resultado_mlandia.precio }}</p>
                 <p>Stock: {{ resultado_mlandia.stock }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado_gpet %}
+            <div class="box">
+                <h3>Gpet</h3>
+                <p>Nombre: {{ resultado_gpet.nombre }}</p>
+                <p>Precio: {{ resultado_gpet.precio }}</p>
+                <p>Stock: {{ resultado_gpet.stock }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado_dgppet %}
+            <div class="box">
+                <h3>De Gatos y Perros</h3>
+                <p>Nombre: {{ resultado_dgppet.nombre }}</p>
+                <p>Precio: {{ resultado_dgppet.precio }}</p>
+                <p>Stock: {{ resultado_dgppet.stock }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado_stgopet %}
+            <div class="box">
+                <h3>Santiago Pet Shop</h3>
+                <p>Nombre: {{ resultado_stgopet.nombre }}</p>
+                <p>Precio: {{ resultado_stgopet.precio }}</p>
+                <p>Stock: {{ resultado_stgopet.stock }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado_lira %}
+            <div class="box">
+                <h3> Distribuidora Lira </h3>
+                <p>Nombre: {{ resultado_lira.nombre }}</p>
+                <p>Precio: {{ resultado_lira.precio }}</p>
+                <p>Stock: {{ resultado_lira.stock }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado_faunimals %}
+            <div class="box">
+                <h3> Faunimals </h3>
+                <p>Nombre: {{ resultado_faunimals.nombre }}</p>
+                <p>Precio: {{ resultado_faunimals.precio }}</p>
+                <p>Stock: {{ resultado_faunimals.stock }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado_manchasSofi %}
+            <div class="box">
+                <h3> Las manchas de Sofi </h3>
+                <p>Nombre: {{ resultado_manchasSofi.nombre }}</p>
+                <p>Precio: {{ resultado_manchasSofi.precio }}</p>
+                <p>Stock: {{ resultado_manchasSofi.stock }}</p>
             </div>
         {% endif %}
     </div>

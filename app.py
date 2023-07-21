@@ -15,11 +15,11 @@ def buscar_alimento(url, selectors):
             precio_elemento = resultado.select_one(selectors['precio'])
             stock_elemento = resultado.select_one(selectors['stock'])
 
-            nombre = nombre_elemento.text.strip() if nombre_elemento else 'No disponible'
-            precio = precio_elemento.text.strip() if precio_elemento else 'No disponible'
-            stock = stock_elemento.text.strip() if stock_elemento else 'No disponible'
+            nombre = nombre_elemento.text.strip() if nombre_elemento else 'Sin Informacion'
+            precio = precio_elemento.text.strip() if precio_elemento else 'Sin Informacion'
+            stock = stock_elemento.text.strip() if stock_elemento else 'Sin Informacion'
 
-            if 'agotado' in stock.lower() or 'fuera de stock' in stock.lower():
+            if 'agotado' in stock.lower() or 'fuera de stock' in stock.lower() or 'sin stock' in stock.lower():
                 stock = "Agotado"
             else:
                 stock = "Con Stock"
@@ -37,6 +37,12 @@ def index():
     resultado_tusmascotas_full = None
     resultado_novapet = None
     resultado_mlandia = None
+    resultado_gpet = None
+    resultado_dgppet = None
+    resultado_stgopet = None
+    resultado_lira = None
+    resultado_faunimals = None
+    resultado_manchasSofi = None
     nombre_alimento = None
 
     if request.method == 'POST':
@@ -46,8 +52,8 @@ def index():
 
         # Configuración de selectores para cada sitio web
         selectors_puntomascotas = {
-            'container': "div.product-container.product-style.pg-epd.pg-eal.pg-evl.pg-bnl",
-            'nombre': "h5.product-name",
+            'container': "div.product-list",
+            'nombre': "a",
             'precio': "span.price.product-price",
             'stock': "div.product-availability"
         }
@@ -70,10 +76,10 @@ def index():
             'stock': "span.out-of-stock"
         }
         selectors_tusmascotas_full = {
-            'container': "div.product-image-summary.col-lg-12.col-12.col-md-12",
-            'nombre': "h1.product_title.entry-title.wd-entities-title",
+            'container': "div.container-fluid",
+            'nombre': "h1.product_title.entry-title",
             'precio': "span.woocommerce-Price-amount.amount",
-            'stock': "span.out-of-stock"
+            'stock': "span.out-of-stock.product-label"
         }
         selectors_novapet = {
             'container': "div.bs-collection__product.border",
@@ -87,6 +93,42 @@ def index():
             'precio': "span.woocommerce-Price-amount.amount",
             'stock': "span.out-of-stock"
         }
+        selectors_gpet = {
+            'container': "td.oe_product",
+            'nombre': "a.tp-link",
+            'precio': "span.oe_currency_value",
+            'stock': "span.out-of-stock"
+        }
+        selectors_dgppet = {
+            'container': "div.row.bs-collection",
+            'nombre': "h3.bs-collection__product-title",
+            'precio': "strong.bs-collection__product-final-price",
+            'stock': "div.bs-collection__product-stock"
+        }
+        selectors_stgopet = {
+            'container': "div.product-thumb",
+            'nombre': "a",
+            'precio': "p.price",
+            'stock': ""
+        }
+        selectors_lira = {
+            'container': "div.shop-container",
+            'nombre': "a.woocommerce-LoopProduct-link.woocommerce-loop-product__link",
+            'precio': "span.woocommerce-Price-amount.amount",
+            'stock': "div.out-of-stock-label"
+        }
+        selectors_faunimals = {
+            'container': "div.d-flex.col-sm-6.col-md-3.text-center",
+            'nombre': "h6.text-truncate",
+            'precio': "div.bs-product-final-price",
+            'stock': ""
+        }
+        selectors_manchasSofi = {
+            'container': "div.products.elements-grid.wd-products-holder",
+            'nombre': "h3.wd-entities-title",
+            'precio': "span.woocommerce-Price-amount.amount",
+            'stock': "span.out-of-stock.product-label",
+        }
 
         # Realizar búsquedas en los sitios web
         resultado_puntomascotas = buscar_alimento(f"https://puntomascotas.cl/buscar?controller=search&s={nombre_alimento_mas}", selectors_puntomascotas)
@@ -96,9 +138,16 @@ def index():
         resultado_tusmascotas_full = buscar_alimento(f"https://www.tusmascotas.cl/?s={nombre_alimento_mas}&post_type=product", selectors_tusmascotas_full)
         resultado_novapet = buscar_alimento(f"https://www.novapet.cl/search?search_text={nombre_alimento_codificado}&limit=24&order=relevance&way=DESC", selectors_novapet)
         resultado_mlandia = buscar_alimento(f"https://mlandia.cl/?s={nombre_alimento_mas}&post_type=product", selectors_mlandia)
+        resultado_gpet = buscar_alimento(f"https://gpet.cl/shop?search={nombre_alimento_mas}", selectors_gpet)
+        resultado_dgppet = buscar_alimento(f"https://www.dgppet.cl/search?search_text={nombre_alimento_codificado}&limit=12&order=relevance&way=DESC", selectors_dgppet)
+        resultado_stgopet = buscar_alimento(f"https://www.santiagopetstore.cl/tienda/index.php?route=product/search&search={nombre_alimento_codificado}", selectors_stgopet)
+        resultado_lira = buscar_alimento(f"https://www.distribuidoralira.cl/?product_cat=&s={nombre_alimento_mas}&post_type=product", selectors_lira)
+        # resultado_faunimals = buscar_alimento(f"https://www.faunimals.com/search?search_text={nombre_alimento_codificado}&limit=24&order=relevance&way=DESC&page=1", selectors_faunimals)
+        resultado_manchasSofi = buscar_alimento(f"https://lasmanchasdesofi.cl/?s={nombre_alimento_mas}&post_type=product", selectors_manchasSofi)
 
     return render_template('index.html', nombre=nombre_alimento, resultado_puntomascotas=resultado_puntomascotas, resultado_braloy=resultado_braloy, resultado_petslandia=resultado_petslandia, resultado_tusmascotas=resultado_tusmascotas,
-    resultado_tusmascotas_full=resultado_tusmascotas_full, resultado_novapet=resultado_novapet, resultado_mlandia=resultado_mlandia)
+    resultado_tusmascotas_full=resultado_tusmascotas_full, resultado_novapet=resultado_novapet, resultado_mlandia=resultado_mlandia, resultado_gpet=resultado_gpet, resultado_dgppet=resultado_dgppet, resultado_stgopet=resultado_stgopet, 
+    resultado_lira=resultado_lira, resultado_faunimals=resultado_faunimals, resultado_manchasSofi=resultado_manchasSofi)
 
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
