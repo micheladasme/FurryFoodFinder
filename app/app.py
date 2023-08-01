@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request
+from flask import render_template, request, Blueprint
 import requests
 from bs4 import BeautifulSoup
 import urllib.parse
 from urllib.parse import quote_plus
 
-app = Flask(__name__)
+main = Blueprint('main' , __name__)
 
 def buscar_alimento(url, selectors):
     print(url)
@@ -31,7 +31,7 @@ def buscar_alimento(url, selectors):
     
     return None
 
-@app.route('/', methods=['GET', 'POST'])
+@main.route('/', methods=['GET', 'POST'])
 def index():
     resultado_puntomascotas = None
     resultado_braloy = None
@@ -187,4 +187,4 @@ def index():
     resultado_lira=resultado_lira, resultado_lira_full=resultado_lira_full, resultado_faunimals=resultado_faunimals, resultado_manchasSofi=resultado_manchasSofi)
 
 if __name__ == '__main__':
-    app.run(port=3000, debug=True)
+    main.run(port=3000, debug=True)
