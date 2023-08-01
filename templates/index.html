@@ -1,214 +1,215 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Web Scraping - Búsqueda de Alimentos</title>
+    <!-- Bulma Version 0.9.4-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <style>
-        .container{
-            height: 100%;
-        }
-        .loader-container {
-          display: none;
-          justify-content: center;
-          align-items: center;
-          height: 100%;
-        }
-        
-        .loader {
-          border: 4px solid #dbdbdb;
-          border-top: 4px solid #3273dc;
-          border-radius: 50%;
-          width: 40px;
-          height: 40px;
-          animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-        </style>        
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <div class="container is-max-widescreen">
-        
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar has-shadow">
+        <div class="container">
             <div class="navbar-brand">
-                <h1 class="title is-3">Búsqueda de Alimentos</h1>
+                <h2 class="navbar-item title">Búsqueda de Alimentos</h2>
             </div>
-        </nav>
-
-        <form id="buscador" action="/" method="POST" onsubmit="return validarFormulario(event)">
-            <div class="field has-addons">
-                <div class="control is-expanded">
-                    <input id="nombre_alimento" class="input" type="text" name="nombre_alimento" placeholder="Nombre del alimento">
-                    <p class="help is-danger" id="error_nombre" style="display:none;">El nombre es obligatorio.</p>
-                </div>
-                <div class="control">
-                    <input class="button is-info" type="submit" value="Buscar" onclick="if (validarFormulario()) { showLoader(); }">
+        </div>
+    </nav>
+    <section class="hero is-info">
+        <div class="hero-body">
+            <div class="container">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content">
+                            <form id="buscador" action="/" method="POST" onsubmit="return validarFormulario(event)">
+                                <div class="field has-addons">
+                                    <div class="control has-icons-left is-expanded">
+                                        <input id="nombre_alimento" class="input" type="search" name="nombre_alimento"
+                                            placeholder="Escribe el nombre aqui..." />
+                                        <span class="icon is-medium is-left">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                        <p class="help is-danger" id="error_nombre" style="display:none;">El nombre es
+                                            obligatorio.</p>
+                                    </div>
+                                    <div class="control">
+                                        <input class="button is-info" type="submit" value="Buscar"
+                                            onclick="if (validarFormulario()) { showLoader(); }">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </form>
+        </div>
+    </section>
 
+    <section class="container block mt-4">
         <div id="loader-container" class="loader-container">
             <div class="loader"></div>
         </div>
-
         {% if nombre %}
         <h3 class="title is-4">Resultado de la búsqueda de: {{nombre}}</h3>
         {% endif %}
 
-
         {% if resultado_puntomascotas %}
-            <div class="box">
-                <h3>Puntomascotas</h3>
-                <p>Nombre: {{ resultado_puntomascotas.nombre }}</p>
-                <p>Precio: {{ resultado_puntomascotas.precio }}</p>
-                <p>Stock: {{ resultado_puntomascotas.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_puntomascotas.shop }}</h4>
+            <p>Nombre: {{ resultado_puntomascotas.nombre }}</p>
+            <p>Precio: {{ resultado_puntomascotas.precio }}</p>
+            <p>Stock: {{ resultado_puntomascotas.stock }}</p>
+        </div>
         {% endif %}
 
         {% if resultado_braloy %}
-            <div class="box">
-                <h3>Braloy</h3>
-                <p>Nombre: {{ resultado_braloy.nombre }}</p>
-                <p>Precio: {{ resultado_braloy.precio }}</p>
-                <p>Stock: {{ resultado_braloy.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_braloy.shop }}</h4>
+            <p>Nombre: {{ resultado_braloy.nombre }}</p>
+            <p>Precio: {{ resultado_braloy.precio }}</p>
+            <p>Stock: {{ resultado_braloy.stock }}</p>
+        </div>
         {% endif %}
 
         {% if resultado_petslandia %}
-            <div class="box">
-                <h3>Petslandia</h3>
-                <p>Nombre: {{ resultado_petslandia.nombre }}</p>
-                <p>Precio: {{ resultado_petslandia.precio }}</p>
-                <p>Stock: {{ resultado_petslandia.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_petslandia.shop }}</h4>
+            <p>Nombre: {{ resultado_petslandia.nombre }}</p>
+            <p>Precio: {{ resultado_petslandia.precio }}</p>
+            <p>Stock: {{ resultado_petslandia.stock }}</p>
+        </div>
         {% endif %}
 
         {% if resultado_tusmascotas %}
-            <div class="box">
-                <h3>Tusmascotas</h3>
-                <p>Nombre: {{ resultado_tusmascotas.nombre }}</p>
-                <p>Precio: {{ resultado_tusmascotas.precio }}</p>
-                <p>Stock: {{ resultado_tusmascotas.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_tusmascotas.shop }}</h4>
+            <p>Nombre: {{ resultado_tusmascotas.nombre }}</p>
+            <p>Precio: {{ resultado_tusmascotas.precio }}</p>
+            <p>Stock: {{ resultado_tusmascotas.stock }}</p>
+        </div>
         {% endif %}
 
         {% if resultado_tusmascotas_full %}
-            <div class="box">
-                <h3>Tusmascotas</h3>
-                <p>Nombre: {{ resultado_tusmascotas_full.nombre }}</p>
-                <p>Precio: {{ resultado_tusmascotas_full.precio }}</p>
-                <p>Stock: {{ resultado_tusmascotas_full.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_tusmascotas_full.shop }}</h4>
+            <p>Nombre: {{ resultado_tusmascotas_full.nombre }}</p>
+            <p>Precio: {{ resultado_tusmascotas_full.precio }}</p>
+            <p>Stock: {{ resultado_tusmascotas_full.stock }}</p>
+        </div>
         {% endif %}
 
         {% if resultado_novapet %}
-            <div class="box">
-                <h3>Novapet</h3>
-                <p>Nombre: {{ resultado_novapet.nombre }}</p>
-                <p>Precio: {{ resultado_novapet.precio }}</p>
-                <p>Stock: {{ resultado_novapet.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_novapet.shop }}</h4>
+            <p>Nombre: {{ resultado_novapet.nombre }}</p>
+            <p>Precio: {{ resultado_novapet.precio }}</p>
+            <p>Stock: {{ resultado_novapet.stock }}</p>
+        </div>
         {% endif %}
 
         {% if resultado_mlandia %}
-            <div class="box">
-                <h3>Mascotalandia</h3>
-                <p>Nombre: {{ resultado_mlandia.nombre }}</p>
-                <p>Precio: {{ resultado_mlandia.precio }}</p>
-                <p>Stock: {{ resultado_mlandia.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_mlandia.shop }}</h4>
+            <p>Nombre: {{ resultado_mlandia.nombre }}</p>
+            <p>Precio: {{ resultado_mlandia.precio }}</p>
+            <p>Stock: {{ resultado_mlandia.stock }}</p>
+        </div>
+        {% endif %}
+
+        {% if resultado_mlandia_full %}
+        <div class="box">
+            <h4 class="title">{{ resultado_mlandia_full.shop }}</h4>
+            <p>Nombre: {{ resultado_mlandia_full.nombre }}</p>
+            <p>Precio: {{ resultado_mlandia_full.precio }}</p>
+            <p>Stock: {{ resultado_mlandia_full.stock }}</p>
+        </div>
         {% endif %}
 
         {% if resultado_gpet %}
-            <div class="box">
-                <h3>Gpet</h3>
-                <p>Nombre: {{ resultado_gpet.nombre }}</p>
-                <p>Precio: {{ resultado_gpet.precio }}</p>
-                <p>Stock: {{ resultado_gpet.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_gpet.shop }}</h4>
+            <p>Nombre: {{ resultado_gpet.nombre }}</p>
+            <p>Precio: {{ resultado_gpet.precio }}</p>
+            <p>Stock: {{ resultado_gpet.stock }}</p>
+        </div>
         {% endif %}
 
         {% if resultado_dgppet %}
-            <div class="box">
-                <h3>De Gatos y Perros</h3>
-                <p>Nombre: {{ resultado_dgppet.nombre }}</p>
-                <p>Precio: {{ resultado_dgppet.precio }}</p>
-                <p>Stock: {{ resultado_dgppet.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_dgppet.shop }}</h4>
+            <p>Nombre: {{ resultado_dgppet.nombre }}</p>
+            <p>Precio: {{ resultado_dgppet.precio }}</p>
+            <p>Stock: {{ resultado_dgppet.stock }}</p>
+        </div>
         {% endif %}
 
         {% if resultado_stgopet %}
-            <div class="box">
-                <h3>Santiago Pet Shop</h3>
-                <p>Nombre: {{ resultado_stgopet.nombre }}</p>
-                <p>Precio: {{ resultado_stgopet.precio }}</p>
-                <p>Stock: {{ resultado_stgopet.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_stgopet.shop }}</h4>
+            <p>Nombre: {{ resultado_stgopet.nombre }}</p>
+            <p>Precio: {{ resultado_stgopet.precio }}</p>
+            <p>Stock: {{ resultado_stgopet.stock }}</p>
+        </div>
         {% endif %}
 
         {% if resultado_lira %}
-            <div class="box">
-                <h3> Distribuidora Lira </h3>
-                <p>Nombre: {{ resultado_lira.nombre }}</p>
-                <p>Precio: {{ resultado_lira.precio }}</p>
-                <p>Stock: {{ resultado_lira.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_lira.shop }}</h4>
+            <p>Nombre: {{ resultado_lira.nombre }}</p>
+            <p>Precio: {{ resultado_lira.precio }}</p>
+            <p>Stock: {{ resultado_lira.stock }}</p>
+        </div>
+        {% endif %}
+
+        {% if resultado_lira_full %}
+        <div class="box">
+            <h4 class="title">{{ resultado_lira_full.shop }} </h4>
+            <p>Nombre: {{ resultado_lira_full.nombre }}</p>
+            <p>Precio: {{ resultado_lira_full.precio }}</p>
+            <p>Stock: {{ resultado_lira_full.stock }}</p>
+        </div>
         {% endif %}
 
         {% if resultado_faunimals %}
-            <div class="box">
-                <h3> Faunimals </h3>
-                <p>Nombre: {{ resultado_faunimals.nombre }}</p>
-                <p>Precio: {{ resultado_faunimals.precio }}</p>
-                <p>Stock: {{ resultado_faunimals.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_faunimals.shop }}</h4>
+            <p>Nombre: {{ resultado_faunimals.nombre }}</p>
+            <p>Precio: {{ resultado_faunimals.precio }}</p>
+            <p>Stock: {{ resultado_faunimals.stock }}</p>
+        </div>
         {% endif %}
 
         {% if resultado_manchasSofi %}
-            <div class="box">
-                <h3> Las manchas de Sofi </h3>
-                <p>Nombre: {{ resultado_manchasSofi.nombre }}</p>
-                <p>Precio: {{ resultado_manchasSofi.precio }}</p>
-                <p>Stock: {{ resultado_manchasSofi.stock }}</p>
-            </div>
+        <div class="box">
+            <h4 class="title">{{ resultado_manchasSofi.shop }} </h4>
+            <p>Nombre: {{ resultado_manchasSofi.nombre }}</p>
+            <p>Precio: {{ resultado_manchasSofi.precio }}</p>
+            <p>Stock: {{ resultado_manchasSofi.stock }}</p>
+        </div>
         {% endif %}
-    </div>
-    <script>
-        function showLoader() {
-            var loaderContainer = document.getElementById("loader-container");
-            loaderContainer.style.display = "flex";
-        }
-
-        function hideLoader() {
-            var loaderContainer = document.getElementById("loader-container");
-            loaderContainer.style.display = "none";
-        }
-
-        function validarFormulario(event) {
-            var nombreInput = document.getElementById("nombre_alimento");
-            var nombreError = document.getElementById("error_nombre");
-
-            if (nombreInput.value.trim() === "") {
-            nombreError.style.display = "block";
-            nombreInput.classList.add("is-danger");
-            event.preventDefault();
-            return false;
-            } else {
-            nombreError.style.display = "none";
-            nombreInput.classList.remove("is-danger");
-            return true;
-            }
-         }
-
-    </script>
+    </section>
+    <footer>
+        <div class="box cta">
+            <div class="columns is-mobile is-centered">
+                <div class="field is-grouped is-grouped-multiline">
+                    <div class="control">
+                        <div class="tags has-addons"><a class="tag is-link"
+                                href="https://github.com/micheladasme/FurryFoodFinder">Furry Food Feeder</a><span
+                                class="tag is-light">Michel Adasme</span></div>
+                    </div>
+                    <div class="control">
+                        <div class="tags has-addons"><a class="tag is-link">The source code is licensed</a><span
+                                class="tag is-light">MIT  <i class="fa fa-github"></i></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="../static/js/main.js"></script>
 </body>
+
 </html>
