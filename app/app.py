@@ -7,7 +7,6 @@ from urllib.parse import quote_plus
 main = Blueprint('main' , __name__)
 
 def buscar_alimento(url, selectors):
-    print(url)
     response = requests.get(url)
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
@@ -28,7 +27,7 @@ def buscar_alimento(url, selectors):
                 stock = "Con Stock"
             
             return {"shop":selectors['shop'], "nombre": nombre, "precio": precio, "stock": stock}
-    
+        
     return None
 
 @main.route('/', methods=['GET', 'POST'])
@@ -186,5 +185,5 @@ def index():
     resultado_tusmascotas_full=resultado_tusmascotas_full, resultado_novapet=resultado_novapet, resultado_mlandia=resultado_mlandia, resultado_mlandia_full=resultado_mlandia_full, resultado_gpet=resultado_gpet, resultado_dgppet=resultado_dgppet, resultado_stgopet=resultado_stgopet, 
     resultado_lira=resultado_lira, resultado_lira_full=resultado_lira_full, resultado_faunimals=resultado_faunimals, resultado_manchasSofi=resultado_manchasSofi)
 
-if __name__ == '__main__':
-    main.run(port=3000, debug=True)
+# if __name__ == '__main__':
+    # main.run(port=3000)
