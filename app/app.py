@@ -86,7 +86,7 @@ def index():
             'nombre': "h5.product-name",
             'precio': "span.price.product-price",
             'stock': "div.product-availability",
-            'url': "a.btn.add-to-cart.details-link"
+            'url': "a.btn.add-to-cart"
         }
         selectors_braloy = {
             'shop': "Braloy",
