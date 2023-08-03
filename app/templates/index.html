@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -105,7 +104,7 @@
         </div>
         {% endif %}
 
-        {% if resultado_tusmascotas %}
+        {% if resultado_tusmascotas and resultado_tusmascotas.nombre != 'Sin Informacion' %}
         <div class="box">
             <h5 class="title is-6">{{ resultado_tusmascotas.shop }}</h5>
             <p>Nombre: {{ resultado_tusmascotas.nombre }}</p>
@@ -121,7 +120,7 @@
         </div>
         {% endif %}
 
-        {% if resultado_tusmascotas_full %}
+        {% if resultado_tusmascotas_full and resultado_tusmascotas_full.nombre != 'Sin Informacion' %}
         <div class="box">
             <h5 class="title is-6">{{ resultado_tusmascotas_full.shop }}</h5>
             <p>Nombre: {{ resultado_tusmascotas_full.nombre }}</p>
@@ -153,7 +152,7 @@
         </div>
         {% endif %}
 
-        {% if resultado_mlandia %}
+        {% if resultado_mlandia and resultado_mlandia.nombre != 'Sin Informacion' %}
         <div class="box">
             <h5 class="title is-6">{{ resultado_mlandia.shop }}</h5>
             <p>Nombre: {{ resultado_mlandia.nombre }}</p>
@@ -169,7 +168,7 @@
         </div>
         {% endif %}
 
-        {% if resultado_mlandia_full %}
+        {% if resultado_mlandia_full and resultado_mlandia_full.nombre != 'Sin Informacion' %}
         <div class="box">
             <h5 class="title is-6">{{ resultado_mlandia_full.shop }}</h5>
             <p>Nombre: {{ resultado_mlandia_full.nombre }}</p>
@@ -233,7 +232,7 @@
         </div>
         {% endif %}
 
-        {% if resultado_lira %}
+        {% if resultado_lira and resultado_lira.nombre != 'Sin Informacion' %}
         <div class="box">
             <h5 class="title is-6">{{ resultado_lira.shop }}</h5>
             <p>Nombre: {{ resultado_lira.nombre }}</p>
@@ -249,7 +248,7 @@
         </div>
         {% endif %}
 
-        {% if resultado_lira_full %}
+        {% if resultado_lira_full and resultado_lira_full.nombre != 'Sin Informacion' %}
         <div class="box">
             <h5 class="title is-6">{{ resultado_lira_full.shop }} </h5>
             <p>Nombre: {{ resultado_lira_full.nombre }}</p>

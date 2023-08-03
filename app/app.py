@@ -2,13 +2,14 @@ from flask import render_template, request, Blueprint
 import requests
 from bs4 import BeautifulSoup
 import urllib.parse
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urljoin, urlparse
 
 main = Blueprint('main' , __name__)
 
 def buscar_alimento(url, selectors):
     userAgent = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'}
     response = requests.get(url, headers=userAgent)
+    base_url = response.url
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
         resultado = soup.select_one(selectors['container'])
@@ -21,16 +22,36 @@ def buscar_alimento(url, selectors):
             nombre = nombre_elemento.text.strip() if nombre_elemento else 'Sin Informacion'
             precio = precio_elemento.text.strip() if precio_elemento else 'Sin Informacion'
             stock = stock_elemento.text.strip() if stock_elemento else 'Sin Informacion'
-            url_product = url_elemento['href'] if url_elemento else ''
+            if url_elemento:
+                if es_ruta_enlace(url_elemento['href']):
+                    url_product = urljoin(base_url, url_elemento['href'])
+                else:
+                    url_product = url_elemento['href']
+            else:
+                url_product = getCanonicalUrl(soup)
 
             if 'agotado' in stock.lower() or 'fuera de stock' in stock.lower() or 'sin stock' in stock.lower():
-                stock = "Agotado"
+                stock = "Agotado"  
             else:
                 stock = "Con Stock"
             
             return {"shop":selectors['shop'], "nombre": nombre, "precio": precio, "stock": stock, "url": url_product }
         
     return None
+
+def es_ruta_enlace(url):
+    parsed_url = urlparse(url)
+    return not bool(parsed_url.scheme) and not bool(parsed_url.netloc)
+
+def getCanonicalUrl(soup):
+    link_canonico = soup.find('link', rel='canonical')
+    if link_canonico and 'href' in link_canonico.attrs:
+        url_canonico = link_canonico['href']
+        print("URL canónica:", url_canonico)
+    else:
+        url_canonico = ''
+        print("No se encontró URL canónica en la página.")
+    return url_canonico
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -82,14 +103,6 @@ def index():
             'precio': "span.amount",
             'stock': "div.product-labels.labels-rectangular",
             'url': "a.product-image-link"
-        }
-        selectors_petslandia_full = {
-            'shop': "Petslandia 2",
-            'container': "div.container-fluid",
-            'nombre': "h1.product_title.entry-title.wd-entities-title",
-            'precio': "span.woocommerce-Price-amount.amount",
-            'stock': "p.stock.out-of-stock",
-            'url': "x"
         }
         selectors_tusmascotas = {
             'shop': "TusMascotas",
