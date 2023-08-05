@@ -70,6 +70,9 @@ def index():
     resultado_lira_full = None
     resultado_faunimals = None
     resultado_manchasSofi = None
+    resultado_berlinHappy = None
+    resultado_petco = None
+    resultado_worldPets = None
     nombre_alimento = None
 
     if request.method == 'POST':
@@ -201,25 +204,57 @@ def index():
             'url': "a.product-image-link"
         }
 
+        selectors_berlinHappy = {
+            'shop': "Berlin Happy",
+            'container': "div.bs-collection__product.border",
+            'nombre': "h3.bs-collection__product-title",
+            'precio': "strong.bs-collection__product-final-price",
+            'stock': "button.btn.btn-primary",
+            'url': "a.bs-collection__product-info"
+        }
+
+        selectors_petco = {
+            'shop': "Petco",
+            'container': "div.product-item",
+            'nombre': "a.name",
+            'precio': "span.discountedPrice",
+            'stock': "button.btn.btn-primary",
+            'url': "a.name"
+        }
+
+        selectors_worldPets = {
+            'shop': "World Pets",
+            'container': "li.product.type-product",
+            'nombre': "h2.woocommerce-loop-product__title",
+            'precio': "span.price",
+            'stock': "x",
+            'url': "a.woocommerce-LoopProduct-link"
+        }
+
+
         # Realizar búsquedas en los sitios web
         
-        resultado_puntomascotas = buscar_alimento(f"https://puntomascotas.cl/buscar?controller=search&s={nombre_codificado_safe_plus}", selectors_puntomascotas)
-        resultado_braloy = buscar_alimento(f"https://www.braloy.cl/busqueda?controller=search&s={nombre_alimento_mas_cast_y}", selectors_braloy)
-        resultado_petslandia = buscar_alimento(f"https://www.petslandia.cl/?s={nombre_alimento_mas}&post_type=product", selectors_petslandia)
-        resultado_tusmascotas = buscar_alimento(f"https://www.tusmascotas.cl/?s={nombre_alimento_mas}&post_type=product", selectors_tusmascotas)
-        resultado_tusmascotas_full = buscar_alimento(f"https://www.tusmascotas.cl/?s={nombre_alimento_mas}&post_type=product", selectors_tusmascotas_full)
-        resultado_novapet = buscar_alimento(f"https://www.novapet.cl/search?search_text={nombre_alimento_mas_codificado}&limit=24&order=relevance&way=DESC", selectors_novapet)
-        resultado_mlandia = buscar_alimento(f"https://mlandia.cl/?s={nombre_alimento_mas}&post_type=product", selectors_mlandia)
-        resultado_mlandia_full = buscar_alimento(f"https://mlandia.cl/?s={nombre_alimento_mas}&post_type=product", selectors_mlandia_full)
-        resultado_gpet = buscar_alimento(f"https://gpet.cl/shop?search={nombre_alimento_mas}", selectors_gpet)
-        resultado_dgppet = buscar_alimento(f"https://www.dgppet.cl/search?search_text={nombre_alimento_mas_codificado}&limit=12&order=relevance&way=DESC", selectors_dgppet)
-        resultado_stgopet = buscar_alimento(f"https://www.santiagopetstore.cl/tienda/index.php?route=product/search&search={nombre_alimento_codificado}", selectors_stgopet)
-        resultado_lira = buscar_alimento(f"https://www.distribuidoralira.cl/?product_cat=&s={nombre_alimento_mas}&post_type=product", selectors_lira)
-        resultado_lira_full = buscar_alimento(f"https://www.distribuidoralira.cl/?product_cat=&s={nombre_alimento_mas}&post_type=product", selectors_lira_full)
-        resultado_faunimals = buscar_alimento(f"https://www.faunimals.com/search?search_text={nombre_alimento_mas_codificado}&limit=24&order=relevance&way=DESC&page=1", selectors_faunimals)
-        resultado_manchasSofi = buscar_alimento(f"https://lasmanchasdesofi.cl/?s={nombre_alimento_mas}&post_type=product", selectors_manchasSofi)
+        #resultado_puntomascotas = buscar_alimento(f"https://puntomascotas.cl/buscar?controller=search&s={nombre_codificado_safe_plus}", selectors_puntomascotas)
+        #resultado_braloy = buscar_alimento(f"https://www.braloy.cl/busqueda?controller=search&s={nombre_alimento_mas_cast_y}", selectors_braloy)
+        #resultado_petslandia = buscar_alimento(f"https://www.petslandia.cl/?s={nombre_alimento_mas}&post_type=product", selectors_petslandia)
+        #resultado_tusmascotas = buscar_alimento(f"https://www.tusmascotas.cl/?s={nombre_alimento_mas}&post_type=product", selectors_tusmascotas)
+        #resultado_tusmascotas_full = buscar_alimento(f"https://www.tusmascotas.cl/?s={nombre_alimento_mas}&post_type=product", selectors_tusmascotas_full)
+        #resultado_novapet = buscar_alimento(f"https://www.novapet.cl/search?search_text={nombre_alimento_mas_codificado}&limit=24&order=relevance&way=DESC", selectors_novapet)
+        #resultado_mlandia = buscar_alimento(f"https://mlandia.cl/?s={nombre_alimento_mas}&post_type=product", selectors_mlandia)
+        #resultado_mlandia_full = buscar_alimento(f"https://mlandia.cl/?s={nombre_alimento_mas}&post_type=product", selectors_mlandia_full)
+        #resultado_gpet = buscar_alimento(f"https://gpet.cl/shop?search={nombre_alimento_mas}", selectors_gpet)
+        #resultado_dgppet = buscar_alimento(f"https://www.dgppet.cl/search?search_text={nombre_alimento_mas_codificado}&limit=12&order=relevance&way=DESC", selectors_dgppet)
+        #resultado_stgopet = buscar_alimento(f"https://www.santiagopetstore.cl/tienda/index.php?route=product/search&search={nombre_alimento_codificado}", selectors_stgopet)
+        #resultado_lira = buscar_alimento(f"https://www.distribuidoralira.cl/?product_cat=&s={nombre_alimento_mas}&post_type=product", selectors_lira)
+        #resultado_lira_full = buscar_alimento(f"https://www.distribuidoralira.cl/?product_cat=&s={nombre_alimento_mas}&post_type=product", selectors_lira_full)
+        #resultado_faunimals = buscar_alimento(f"https://www.faunimals.com/search?search_text={nombre_alimento_mas_codificado}&limit=24&order=relevance&way=DESC&page=1", selectors_faunimals)
+        #resultado_manchasSofi = buscar_alimento(f"https://lasmanchasdesofi.cl/?s={nombre_alimento_mas}&post_type=product", selectors_manchasSofi)
+        resultado_berlinHappy = buscar_alimento(f"https://www.berlinhappy.cl/search?search_text={nombre_alimento_mas_codificado}&limit=12&order=relevance&way=DESC", selectors_berlinHappy)
+        resultado_petco = buscar_alimento(f"https://www.petco.cl/petco-chile/es_CL/search/?text={nombre_alimento_mas}", selectors_petco) 
+        resultado_worldPets = buscar_alimento(f"https://www.worldpet.cl/?s={nombre_alimento_mas}&post_type=product&dgwt_wcas=1", selectors_worldPets)
 
     return render_template('index.html', nombre=nombre_alimento, resultado_puntomascotas=resultado_puntomascotas, resultado_braloy=resultado_braloy, resultado_petslandia=resultado_petslandia, resultado_tusmascotas=resultado_tusmascotas,
     resultado_tusmascotas_full=resultado_tusmascotas_full, resultado_novapet=resultado_novapet, resultado_mlandia=resultado_mlandia, resultado_mlandia_full=resultado_mlandia_full, resultado_gpet=resultado_gpet, resultado_dgppet=resultado_dgppet, resultado_stgopet=resultado_stgopet, 
-    resultado_lira=resultado_lira, resultado_lira_full=resultado_lira_full, resultado_faunimals=resultado_faunimals, resultado_manchasSofi=resultado_manchasSofi)
+    resultado_lira=resultado_lira, resultado_lira_full=resultado_lira_full, resultado_faunimals=resultado_faunimals, resultado_manchasSofi=resultado_manchasSofi, resultado_berlinHappy=resultado_berlinHappy, resultado_petco=resultado_petco, 
+    resultado_worldPets=resultado_worldPets)
 

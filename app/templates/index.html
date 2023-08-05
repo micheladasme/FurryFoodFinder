@@ -295,6 +295,54 @@
             </div>
         </div>
         {% endif %}
+
+        {% if resultado_berlinHappy %}
+        <div class="box">
+            <h5 class="title is-6">{{ resultado_berlinHappy.shop }} </h5>
+            <p>Nombre: {{ resultado_berlinHappy.nombre }}</p>
+            <p>Precio: {{ resultado_berlinHappy.precio }}</p>
+            <p>Stock: {{ resultado_berlinHappy.stock }}</p>
+            <div class="field is-grouped is-grouped-right">
+                <p class="control">
+                    <a class="button is-primary" href="{{ resultado_berlinHappy.url }}" target="_blank">
+                        Ir al producto
+                    </a>
+                </p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if resultado_petco %}
+        <div class="box">
+            <h5 class="title is-6">{{ resultado_petco.shop }} </h5>
+            <p>Nombre: {{ resultado_petco.nombre }}</p>
+            <p>Precio: {{ resultado_petco.precio }}</p>
+            <p>Stock: {{ resultado_petco.stock }}</p>
+            <div class="field is-grouped is-grouped-right">
+                <p class="control">
+                    <a class="button is-primary" href="{{ resultado_petco.url }}" target="_blank">
+                        Ir al producto
+                    </a>
+                </p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if resultado_worldPets %}
+        <div class="box">
+            <h5 class="title is-6">{{ resultado_worldPets.shop }} </h5>
+            <p>Nombre: {{ resultado_worldPets.nombre }}</p>
+            <p>Precio: {{ resultado_worldPets.precio }}</p>
+            <p>Stock: {{ resultado_worldPets.stock }}</p>
+            <div class="field is-grouped is-grouped-right">
+                <p class="control">
+                    <a class="button is-primary" href="{{ resultado_worldPets.url }}" target="_blank">
+                        Ir al producto
+                    </a>
+                </p>
+            </div>
+        </div>
+        {% endif %}
     </section>
     <footer>
         <div class="box cta">
