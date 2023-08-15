@@ -2,6 +2,7 @@ footer {
   margin-top: 2rem;
   bottom: 0;
   width: 100%;
+  position: fixed;
 }
 
 .container {
@@ -11,8 +12,11 @@ footer {
 .loader-container {
   display: none;
   justify-content: center;
-  align-items: flex-start;
-  height: 60vh;
+  align-items: center;
+  height: 50vh;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 15rem;
 }
 
 .loader {

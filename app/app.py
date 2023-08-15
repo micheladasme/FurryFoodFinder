@@ -53,8 +53,12 @@ def getCanonicalUrl(soup):
         print("No se encontró URL canónica en la página.")
     return url_canonico
 
-@main.route('/', methods=['GET', 'POST'])
+@main.route('/')
 def index():
+    return render_template('index.html')
+
+@main.route('/search', methods=['POST'])
+def search():
     resultado_puntomascotas = None
     resultado_braloy = None
     resultado_petslandia = None
@@ -253,8 +257,7 @@ def index():
         resultado_petco = buscar_alimento(f"https://www.petco.cl/petco-chile/es_CL/search/?text={nombre_alimento_mas}", selectors_petco) 
         resultado_worldPets = buscar_alimento(f"https://www.worldpet.cl/?s={nombre_alimento_mas}&post_type=product&dgwt_wcas=1", selectors_worldPets)
 
-    return render_template('index.html', nombre=nombre_alimento, resultado_puntomascotas=resultado_puntomascotas, resultado_braloy=resultado_braloy, resultado_petslandia=resultado_petslandia, resultado_tusmascotas=resultado_tusmascotas,
+    return render_template('found.html', nombre=nombre_alimento, resultado_puntomascotas=resultado_puntomascotas, resultado_braloy=resultado_braloy, resultado_petslandia=resultado_petslandia, resultado_tusmascotas=resultado_tusmascotas,
     resultado_tusmascotas_full=resultado_tusmascotas_full, resultado_novapet=resultado_novapet, resultado_mlandia=resultado_mlandia, resultado_mlandia_full=resultado_mlandia_full, resultado_gpet=resultado_gpet, resultado_dgppet=resultado_dgppet, resultado_stgopet=resultado_stgopet, 
     resultado_lira=resultado_lira, resultado_lira_full=resultado_lira_full, resultado_faunimals=resultado_faunimals, resultado_manchasSofi=resultado_manchasSofi, resultado_berlinHappy=resultado_berlinHappy, resultado_petco=resultado_petco, 
     resultado_worldPets=resultado_worldPets)
-
